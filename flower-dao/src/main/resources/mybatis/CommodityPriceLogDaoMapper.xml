@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flower.xin.orm.mapper.CommodityPriceLogDaoMapper">
+  <resultMap id="BaseResultMap" type="com.flower.xin.orm.dao.CommodityPriceLogDao">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="commodity_id" jdbcType="BIGINT" property="commodityId" />
+    <result column="original_price" jdbcType="INTEGER" property="originalPrice" />
+    <result column="current_price" jdbcType="INTEGER" property="currentPrice" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, commodity_id, original_price, current_price, created_at, updated_at
+  </sql>
+  <sql id="query_event_push_where_clause">
+    <where>
+      <if test="id != null">
+        AND id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="commodityId != null">
+        AND commodity_id = #{commodityId,jdbcType=BIGINT}
+      </if>
+      <if test="originalPrice != null">
+        AND original_price = #{originalPrice,jdbcType=INTEGER}
+      </if>
+      <if test="currentPrice != null">
+        AND current_price = #{currentPrice,jdbcType=INTEGER}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectBySelective" parameterType="com.flower.xin.orm.dao.CommodityPriceLogDao" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_commodity_price_log
+    <include refid="query_event_push_where_clause"/>
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_commodity_price_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_commodity_price_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.flower.xin.orm.dao.CommodityPriceLogDao">
+    insert into tb_commodity_price_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="commodityId != null">
+        commodity_id,
+      </if>
+      <if test="originalPrice != null">
+        original_price,
+      </if>
+      <if test="currentPrice != null">
+        current_price,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="commodityId != null">
+        #{commodityId,jdbcType=BIGINT},
+      </if>
+      <if test="originalPrice != null">
+        #{originalPrice,jdbcType=INTEGER},
+      </if>
+      <if test="currentPrice != null">
+        #{currentPrice,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flower.xin.orm.dao.CommodityPriceLogDao">
+    update tb_commodity_price_log
+    <set>
+      <if test="commodityId != null">
+        commodity_id = #{commodityId,jdbcType=BIGINT},
+      </if>
+      <if test="originalPrice != null">
+        original_price = #{originalPrice,jdbcType=INTEGER},
+      </if>
+      <if test="currentPrice != null">
+        current_price = #{currentPrice,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

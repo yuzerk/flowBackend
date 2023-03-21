@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flower.xin.orm.mapper.UserDaoMapper">
+  <resultMap id="BaseResultMap" type="com.flower.xin.orm.dao.UserDao">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="boss_id" jdbcType="BIGINT" property="bossId" />
+    <result column="referrer_id" jdbcType="BIGINT" property="referrerId" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="phone_num" jdbcType="VARCHAR" property="phoneNum" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_type" jdbcType="TINYINT" property="userType" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="language" jdbcType="VARCHAR" property="language" />
+    <result column="gender" jdbcType="TINYINT" property="gender" />
+    <result column="default_receive_id" jdbcType="BIGINT" property="defaultReceiveId" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, boss_id, referrer_id, nick_name, user_name, open_id, phone_num, user_type, city, avatar_url,
+    country, province, language, gender, default_receive_id, created_at, updated_at
+  </sql>
+
+  <sql id="query_event_push_where_clause">
+    <where>
+      <if test="id != null">
+        AND id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="bossId != null">
+        AND boss_id = #{bossId,jdbcType=BIGINT}
+      </if>
+      <if test="referrerId != null">
+        AND referrer_id = #{referrerId,jdbcType=BIGINT}
+      </if>
+      <if test="nickName != null">
+        AND nick_name = #{nickName,jdbcType=VARCHAR}
+      </if>
+      <if test="userName != null">
+        AND user_name = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="openId != null">
+        AND open_id = #{openId,jdbcType=VARCHAR}
+      </if>
+      <if test="phoneNum != null">
+        AND phone_num = #{phoneNum,jdbcType=VARCHAR}
+      </if>
+      <if test="userType != null">
+        AND user_type = #{userType,jdbcType=TINYINT}
+      </if>
+      <if test="city != null">
+        AND city = #{city,jdbcType=VARCHAR}
+      </if>
+      <if test="avatarUrl != null">
+        AND avatar_url = #{avatarUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="country != null">
+        AND country = #{country,jdbcType=VARCHAR}
+      </if>
+      <if test="province != null">
+        AND province = #{province,jdbcType=VARCHAR}
+      </if>
+      <if test="language != null">
+        AND language = #{language,jdbcType=VARCHAR}
+      </if>
+      <if test="gender != null">
+        AND gender = #{gender,jdbcType=TINYINT}
+      </if>
+      <if test="defaultReceiveId != null">
+        AND default_receive_id = #{defaultReceiveId,jdbcType=BIGINT}
+      </if>
+    </where>
+  </sql>
+  <select id="selectBySelective" parameterType="com.flower.xin.orm.dao.UserDao" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_user
+    <include refid="query_event_push_where_clause"/>
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.flower.xin.orm.dao.UserDao">
+    insert into tb_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bossId != null">
+        boss_id,
+      </if>
+      <if test="referrerId != null">
+        referrer_id,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="phoneNum != null">
+        phone_num,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="avatarUrl != null">
+        avatar_url,
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="language != null">
+        language,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="defaultReceiveId != null">
+        default_receive_id,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="bossId != null">
+        #{bossId,jdbcType=BIGINT},
+      </if>
+      <if test="referrerId != null">
+        #{referrerId,jdbcType=BIGINT},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null">
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=TINYINT},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null">
+        #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="defaultReceiveId != null">
+        #{defaultReceiveId,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    <selectKey resultType="java.lang.Long" order="AFTER"
+               keyProperty="id" keyColumn="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flower.xin.orm.dao.UserDao">
+    update tb_user
+    <set>
+      <if test="bossId != null">
+        boss_id = #{bossId,jdbcType=BIGINT},
+      </if>
+      <if test="referrerId != null">
+        referrer_id = #{referrerId,jdbcType=BIGINT},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null">
+        phone_num = #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=TINYINT},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null">
+        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="defaultReceiveId != null">
+        default_receive_id = #{defaultReceiveId,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flower.xin.orm.mapper.CouponCategoryDaoMapper">
+  <resultMap id="BaseResultMap" type="com.flower.xin.orm.dao.CouponCategoryDao">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="discounts" jdbcType="INTEGER" property="discounts" />
+    <result column="coupon_type" jdbcType="TINYINT" property="couponType" />
+    <result column="expire_time" jdbcType="BIGINT" property="expireTime" />
+    <result column="is_validate" jdbcType="TINYINT" property="isValidate" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, discounts, coupon_type, expire_time, is_validate, created_at, updated_at
+  </sql>
+  <sql id="query_event_push_where_clause">
+    <where>
+      <if test="id != null">
+        AND id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="discounts != null">
+        AND discounts = #{discounts,jdbcType=INTEGER}
+      </if>
+      <if test="couponType != null">
+        AND coupon_type = #{couponType,jdbcType=TINYINT}
+      </if>
+      <if test="isValidate != null">
+        AND is_validate = #{isValidate,jdbcType=TINYINT}
+      </if>
+    </where>
+  </sql>
+  <select id="selectBySelective" parameterType="com.flower.xin.orm.dao.CouponCategoryDao" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_coupon_category
+    <include refid="query_event_push_where_clause"/>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_coupon_category
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_coupon_category
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insertSelective" parameterType="com.flower.xin.orm.dao.CouponCategoryDao">
+    insert into tb_coupon_category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="discounts != null">
+        discounts,
+      </if>
+      <if test="couponType != null">
+        coupon_type,
+      </if>
+      <if test="expireTime != null">
+        expire_time,
+      </if>
+      <if test="isValidate != null">
+        is_validate,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="discounts != null">
+        #{discounts,jdbcType=INTEGER},
+      </if>
+      <if test="couponType != null">
+        #{couponType,jdbcType=TINYINT},
+      </if>
+      <if test="expireTime != null">
+        #{expireTime,jdbcType=BIGINT},
+      </if>
+      <if test="isValidate != null">
+        #{isValidate,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    <selectKey resultType="java.lang.Long" order="AFTER"
+               keyProperty="id" keyColumn="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flower.xin.orm.dao.CouponCategoryDao">
+    update tb_coupon_category
+    <set>
+      <if test="discounts != null">
+        discounts = #{discounts,jdbcType=INTEGER},
+      </if>
+      <if test="couponType != null">
+        coupon_type = #{couponType,jdbcType=TINYINT},
+      </if>
+      <if test="expireTime != null">
+        expire_time = #{expireTime,jdbcType=BIGINT},
+      </if>
+      <if test="isValidate != null">
+        is_validate = #{isValidate,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

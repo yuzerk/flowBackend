@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flower.xin.orm.mapper.CommodityDaoMapper">
+  <resultMap id="BaseResultMap" type="com.flower.xin.orm.dao.CommodityDao">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="commodity_desc" jdbcType="VARCHAR" property="commodityDesc" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="pic_list" jdbcType="VARCHAR" property="picList" />
+    <result column="details_pic_list" jdbcType="VARCHAR" property="detailsPicList" />
+    <result column="original_price" jdbcType="INTEGER" property="originalPrice" />
+    <result column="current_price" jdbcType="INTEGER" property="currentPrice" />
+    <result column="classify_id" jdbcType="BIGINT" property="classifyId" />
+    <result column="commodity_type" jdbcType="BIGINT" property="commodityType" />
+    <result column="boss_id" jdbcType="BIGINT" property="bossId" />
+    <result column="payload" jdbcType="VARCHAR" property="payload" />
+    <result column="is_validate" jdbcType="TINYINT" property="isValidate" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, commodity_desc, detail, pic_list, details_pic_list, original_price, current_price,
+    classify_id, commodity_type, boss_id, payload, is_validate, created_at, updated_at
+  </sql>
+  <sql id="query_event_push_where_clause">
+    <where>
+      <if test="id != null">
+        AND id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="ids != null and ids.size > 0">
+        AND id in
+        <foreach collection="ids" index="index" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+      <if test="name != null">
+        AND name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="commodityDesc != null">
+        AND commodity_desc = #{commodityDesc,jdbcType=VARCHAR}
+      </if>
+      <if test="detail != null">
+        AND detail = #{detail,jdbcType=VARCHAR}
+      </if>
+      <if test="picList != null">
+        AND pic_list = #{picList,jdbcType=VARCHAR}
+      </if>
+      <if test="detailsPicList != null">
+        AND details_pic_list = #{detailsPicList,jdbcType=VARCHAR}
+      </if>
+      <if test="originalPrice != null">
+        AND original_price = #{originalPrice,jdbcType=INTEGER}
+      </if>
+      <if test="currentPrice != null">
+        AND current_price = #{currentPrice,jdbcType=INTEGER}
+      </if>
+      <if test="classifyId != null">
+        AND classify_id = #{classifyId,jdbcType=BIGINT}
+      </if>
+      <if test="commodityType != null">
+        AND commodity_type = #{commodityType,jdbcType=SMALLINT}
+      </if>
+      <if test="bossId != null">
+        AND boss_id = #{bossId,jdbcType=BIGINT}
+      </if>
+      <if test="payload != null">
+        AND payload = #{payload,jdbcType=VARCHAR}
+      </if>
+      <if test="isValidate != null">
+        AND is_validate = #{isValidate,jdbcType=TINYINT}
+      </if>
+    </where>
+  </sql>
+  <select id="selectBySelective" parameterType="com.flower.xin.orm.dao.CommodityDao" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_commodity
+    <include refid="query_event_push_where_clause"/>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_commodity
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByNameLike" parameterType="com.flower.xin.orm.dao.CommodityDao" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_commodity
+    where name like #{name,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_commodity
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insertSelective" parameterType="com.flower.xin.orm.dao.CommodityDao">
+    insert into tb_commodity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="commodityDesc != null">
+        commodity_desc,
+      </if>
+      <if test="detail != null">
+        detail,
+      </if>
+      <if test="picList != null">
+        pic_list,
+      </if>
+      <if test="detailsPicList != null">
+        details_pic_list,
+      </if>
+      <if test="originalPrice != null">
+        original_price,
+      </if>
+      <if test="currentPrice != null">
+        current_price,
+      </if>
+      <if test="classifyId != null">
+        classify_id,
+      </if>
+      <if test="commodityType != null">
+        commodity_type,
+      </if>
+      <if test="bossId != null">
+        boss_id,
+      </if>
+      <if test="payload != null">
+        payload,
+      </if>
+      <if test="isValidate != null">
+        is_validate,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityDesc != null">
+        #{commodityDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="picList != null">
+        #{picList,jdbcType=VARCHAR},
+      </if>
+      <if test="detailsPicList != null">
+        #{detailsPicList,jdbcType=VARCHAR},
+      </if>
+      <if test="originalPrice != null">
+        #{originalPrice,jdbcType=INTEGER},
+      </if>
+      <if test="currentPrice != null">
+        #{currentPrice,jdbcType=INTEGER},
+      </if>
+      <if test="classifyId != null">
+        #{classifyId,jdbcType=BIGINT},
+      </if>
+      <if test="commodityType != null">
+        #{commodityType,jdbcType=SMALLINT},
+      </if>
+      <if test="bossId != null">
+        #{bossId,jdbcType=BIGINT},
+      </if>
+      <if test="payload != null">
+        #{payload,jdbcType=VARCHAR},
+      </if>
+      <if test="isValidate != null">
+        #{isValidate,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flower.xin.orm.dao.CommodityDao">
+    update tb_commodity
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityDesc != null">
+        commodity_desc = #{commodityDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="picList != null">
+        pic_list = #{picList,jdbcType=VARCHAR},
+      </if>
+      <if test="detailsPicList != null">
+        details_pic_list = #{detailsPicList,jdbcType=VARCHAR},
+      </if>
+      <if test="originalPrice != null">
+        original_price = #{originalPrice,jdbcType=INTEGER},
+      </if>
+      <if test="currentPrice != null">
+        current_price = #{currentPrice,jdbcType=INTEGER},
+      </if>
+      <if test="classifyId != null">
+        classify_id = #{classifyId,jdbcType=BIGINT},
+      </if>
+      <if test="commodityType != null">
+        commodity_type = #{commodityType,jdbcType=SMALLINT},
+      </if>
+      <if test="bossId != null">
+        boss_id = #{bossId,jdbcType=BIGINT},
+      </if>
+      <if test="payload != null">
+        payload = #{payload,jdbcType=VARCHAR},
+      </if>
+      <if test="isValidate != null">
+        is_validate = #{isValidate,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

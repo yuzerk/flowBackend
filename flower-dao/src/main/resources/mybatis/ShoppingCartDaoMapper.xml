@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flower.xin.orm.mapper.ShoppingCartDaoMapper">
+  <resultMap id="BaseResultMap" type="com.flower.xin.orm.dao.ShoppingCartDao">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="commodity_id" jdbcType="BIGINT" property="commodityId" />
+    <result column="commodity_count" jdbcType="INTEGER" property="commodityCount" />
+    <result column="is_validate" jdbcType="TINYINT" property="isValidate" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, commodity_id, commodity_count, is_validate, created_at, updated_at
+  </sql>
+
+  <sql id="query_event_push_where_clause">
+    <where>
+      <if test="id != null">
+        AND id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="userId != null">
+        AND user_id = #{userId,jdbcType=BIGINT}
+      </if>
+      <if test="commodityId != null">
+        AND commodity_id = #{commodityId,jdbcType=BIGINT}
+      </if>
+      <if test="commodityCount != null">
+        AND commodity_count = #{commodityCount,jdbcType=INTEGER}
+      </if>
+      <if test="isValidate != null">
+        AND is_validate = #{isValidate,jdbcType=TINYINT}
+      </if>
+    </where>
+  </sql>
+  <select id="selectBySelective" parameterType="com.flower.xin.orm.dao.ShoppingCartDao" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_shopping_cart
+    <include refid="query_event_push_where_clause"/>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_shopping_cart
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_shopping_cart
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.flower.xin.orm.dao.ShoppingCartDao">
+    insert into tb_shopping_cart (id, user_id, commodity_id,
+      commodity_count, is_validate, created_at,
+      updated_at)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{commodityId,jdbcType=BIGINT},
+      #{commodityCount,jdbcType=INTEGER}, #{isValidate,jdbcType=TINYINT}, #{createdAt,jdbcType=TIMESTAMP},
+      #{updatedAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.flower.xin.orm.dao.ShoppingCartDao">
+    insert into tb_shopping_cart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="commodityId != null">
+        commodity_id,
+      </if>
+      <if test="commodityCount != null">
+        commodity_count,
+      </if>
+      <if test="isValidate != null">
+        is_validate,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="commodityId != null">
+        #{commodityId,jdbcType=BIGINT},
+      </if>
+      <if test="commodityCount != null">
+        #{commodityCount,jdbcType=INTEGER},
+      </if>
+      <if test="isValidate != null">
+        #{isValidate,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    <selectKey resultType="java.lang.Long" order="AFTER"
+               keyProperty="id" keyColumn="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flower.xin.orm.dao.ShoppingCartDao">
+    update tb_shopping_cart
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="commodityId != null">
+        commodity_id = #{commodityId,jdbcType=BIGINT},
+      </if>
+      <if test="commodityCount != null">
+        commodity_count = #{commodityCount,jdbcType=INTEGER},
+      </if>
+      <if test="isValidate != null">
+        is_validate = #{isValidate,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flower.xin.orm.dao.ShoppingCartDao">
+    update tb_shopping_cart
+    set user_id = #{userId,jdbcType=BIGINT},
+      commodity_id = #{commodityId,jdbcType=BIGINT},
+      commodity_count = #{commodityCount,jdbcType=INTEGER},
+      is_validate = #{isValidate,jdbcType=TINYINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="batchUpdateByPrimaryKeySelective" parameterType="com.flower.xin.orm.dao.ShoppingCartDao">
+    update tb_shopping_cart
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="commodityId != null">
+        commodity_id = #{commodityId,jdbcType=BIGINT},
+      </if>
+      <if test="commodityCount != null">
+        commodity_count = #{commodityCount,jdbcType=INTEGER},
+      </if>
+      <if test="isValidate != null">
+        is_validate = #{isValidate,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+    <where>
+      AND id in
+      <foreach collection="ids" index="index" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach>
+    </where>
+  </update>
+
+  <select id="countByUid" resultType="java.lang.Long">
+    select count(1) from tb_shopping_cart where user_id = #{uid, jdbcType=BIGINT} and is_validate = 1;
+  </select>
+</mapper>

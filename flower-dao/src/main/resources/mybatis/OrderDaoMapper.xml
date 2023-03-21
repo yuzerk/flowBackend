@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flower.xin.orm.mapper.OrderDaoMapper">
+  <resultMap id="BaseResultMap" type="com.flower.xin.orm.dao.OrderDao">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="shipping_order_id" jdbcType="BIGINT" property="shippingOrderId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="boss_id" jdbcType="BIGINT" property="bossId" />
+    <result column="commodity_price" jdbcType="INTEGER" property="commodityPrice" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="user_coupon_id" jdbcType="BIGINT" property="userCouponId" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="pay_order" jdbcType="VARCHAR" property="payOrder" />
+    <result column="pay_success" jdbcType="TINYINT" property="paySuccess" />
+    <result column="shipping_status" jdbcType="SMALLINT" property="shippingStatus" />
+    <result column="order_type" jdbcType="TINYINT" property="orderType" />
+    <result column="delivery_type" jdbcType="TINYINT" property="deliveryType" />
+    <result column="pay_expire_at" jdbcType="TIMESTAMP" property="payExpireAt" />
+    <result column="customer_delivery_at" jdbcType="TIMESTAMP" property="customerDeliveryAt" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, shipping_order_id, user_id, user_name, user_phone, boss_id, commodity_price,
+    price, user_coupon_id, status, pay_order, pay_success, shipping_status, order_type,
+    delivery_type, pay_expire_at, customer_delivery_at, created_at, updated_at
+  </sql>
+  <sql id="query_event_push_where_clause">
+    <where>
+      <if test="id != null">
+        AND id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="shippingOrderId != null">
+        AND shipping_order_id = #{shippingOrderId,jdbcType=BIGINT}
+      </if>
+      <if test="userId != null">
+        AND user_id = #{userId,jdbcType=BIGINT}
+      </if>
+      <if test="userName != null">
+        AND user_name = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="userPhone != null">
+        AND user_phone = #{userPhone,jdbcType=VARCHAR}
+      </if>
+      <if test="bossId != null">
+        AND boss_id = #{bossId,jdbcType=BIGINT}
+      </if>
+      <if test="commodityPrice != null">
+        AND commodity_price = #{commodityPrice,jdbcType=INTEGER}
+      </if>
+      <if test="price != null">
+        AND price = #{price,jdbcType=INTEGER}
+      </if>
+      <if test="userCouponId != null">
+        AND user_coupon_id = #{userCouponId,jdbcType=BIGINT}
+      </if>
+      <if test="status != null">
+        AND status = #{status,jdbcType=SMALLINT}
+      </if>
+      <if test="payOrder != null">
+        AND pay_order = #{payOrder,jdbcType=VARCHAR}
+      </if>
+      <if test="paySuccess != null">
+        AND pay_success = #{paySuccess,jdbcType=TINYINT}
+      </if>
+      <if test="shippingStatus != null">
+        AND shipping_status = #{shippingStatus,jdbcType=SMALLINT}
+      </if>
+      <if test="orderType != null">
+        AND order_type = #{orderType,jdbcType=TINYINT}
+      </if>
+      <if test="deliveryType != null">
+        AND delivery_type = #{deliveryType,jdbcType=TINYINT}
+      </if>
+      <if test="payExpireAt != null">
+        AND pay_expire_at = #{payExpireAt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="customerDeliveryAt != null">
+        AND customer_delivery_at = #{customerDeliveryAt,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </sql>
+  <select id="selectBySelective" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_order
+    <include refid="query_event_push_where_clause"/>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <insert id="insertSelective" parameterType="com.flower.xin.orm.dao.OrderDao">
+    insert into tb_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="shippingOrderId != null">
+        shipping_order_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="bossId != null">
+        boss_id,
+      </if>
+      <if test="commodityPrice != null">
+        commodity_price,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="userCouponId != null">
+        user_coupon_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="payOrder != null">
+        pay_order,
+      </if>
+      <if test="paySuccess != null">
+        pay_success,
+      </if>
+      <if test="shippingStatus != null">
+        shipping_status,
+      </if>
+      <if test="orderType != null">
+        order_type,
+      </if>
+      <if test="deliveryType != null">
+        delivery_type,
+      </if>
+      <if test="payExpireAt != null">
+        pay_expire_at,
+      </if>
+      <if test="customerDeliveryAt != null">
+        customer_delivery_at,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="shippingOrderId != null">
+        #{shippingOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="bossId != null">
+        #{bossId,jdbcType=BIGINT},
+      </if>
+      <if test="commodityPrice != null">
+        #{commodityPrice,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="userCouponId != null">
+        #{userCouponId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="payOrder != null">
+        #{payOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="paySuccess != null">
+        #{paySuccess,jdbcType=TINYINT},
+      </if>
+      <if test="shippingStatus != null">
+        #{shippingStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=TINYINT},
+      </if>
+      <if test="deliveryType != null">
+        #{deliveryType,jdbcType=TINYINT},
+      </if>
+      <if test="payExpireAt != null">
+        #{payExpireAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerDeliveryAt != null">
+        #{customerDeliveryAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    <selectKey resultType="java.lang.Long" order="AFTER"
+               keyProperty="id" keyColumn="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flower.xin.orm.dao.OrderDao">
+    update tb_order
+    <set>
+      <if test="shippingOrderId != null">
+        shipping_order_id = #{shippingOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="bossId != null">
+        boss_id = #{bossId,jdbcType=BIGINT},
+      </if>
+      <if test="commodityPrice != null">
+        commodity_price = #{commodityPrice,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="userCouponId != null">
+        user_coupon_id = #{userCouponId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="payOrder != null">
+        pay_order = #{payOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="paySuccess != null">
+        pay_success = #{paySuccess,jdbcType=TINYINT},
+      </if>
+      <if test="shippingStatus != null">
+        shipping_status = #{shippingStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="orderType != null">
+        order_type = #{orderType,jdbcType=TINYINT},
+      </if>
+      <if test="deliveryType != null">
+        delivery_type = #{deliveryType,jdbcType=TINYINT},
+      </if>
+      <if test="payExpireAt != null">
+        pay_expire_at = #{payExpireAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerDeliveryAt != null">
+        customer_delivery_at = #{customerDeliveryAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

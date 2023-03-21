@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flower.xin.orm.mapper.UserReceiveAddressDaoMapper">
+  <resultMap id="BaseResultMap" type="com.flower.xin.orm.dao.UserReceiveAddressDao">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="customer_phone" jdbcType="VARCHAR" property="customerPhone" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="sl_city" jdbcType="VARCHAR" property="slCity" />
+    <result column="tl_city" jdbcType="VARCHAR" property="tlCity" />
+    <result column="street" jdbcType="VARCHAR" property="street" />
+    <result column="address_detail" jdbcType="VARCHAR" property="addressDetail" />
+    <result column="is_validate" jdbcType="TINYINT" property="isValidate" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, customer_name, customer_phone, province, sl_city, tl_city, street, address_detail, is_validate, created_at,
+    updated_at
+  </sql>
+  <sql id="query_event_push_where_clause">
+    <where>
+      <if test="id != null">
+        AND id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="userId != null">
+        AND user_id = #{userId,jdbcType=BIGINT}
+      </if>
+      <if test="customerName != null">
+        AND customer_name = #{customerName,jdbcType=VARCHAR}
+      </if>
+      <if test="customerPhone != null">
+        AND customer_phone = #{customerPhone,jdbcType=VARCHAR}
+      </if>
+      <if test="province != null">
+        AND province = #{province,jdbcType=VARCHAR}
+      </if>
+      <if test="slCity != null">
+        AND sl_city = #{slCity,jdbcType=VARCHAR}
+      </if>
+      <if test="tlCity != null">
+        AND tl_city = #{tlCity,jdbcType=VARCHAR}
+      </if>
+      <if test="street != null">
+        AND street = #{street,jdbcType=VARCHAR}
+      </if>
+      <if test="addressDetail != null">
+        AND address_detail = #{addressDetail,jdbcType=VARCHAR}
+      </if>
+      <if test="isValidate != null">
+        AND is_validate = #{isValidate,jdbcType=TINYINT}
+      </if>
+    </where>
+  </sql>
+  <select id="selectBySelective" parameterType="com.flower.xin.orm.dao.UserReceiveAddressDao" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_user_receive_address
+    <include refid="query_event_push_where_clause"/>
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_user_receive_address
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_user_receive_address
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.flower.xin.orm.dao.UserReceiveAddressDao">
+    insert into tb_user_receive_address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="customerPhone != null">
+        customer_phone,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="slCity != null">
+        sl_city,
+      </if>
+      <if test="tlCity != null">
+        tl_city,
+      </if>
+      <if test="street != null">
+        street,
+      </if>
+      <if test="addressDetail != null">
+        address_detail,
+      </if>
+      <if test="isValidate != null">
+        is_validate,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null">
+        #{customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="slCity != null">
+        #{slCity,jdbcType=VARCHAR},
+      </if>
+      <if test="tlCity != null">
+        #{tlCity,jdbcType=VARCHAR},
+      </if>
+      <if test="street != null">
+        #{street,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetail != null">
+        #{addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="isValidate != null">
+        #{isValidate,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    <selectKey resultType="java.lang.Long" order="AFTER"
+               keyProperty="id" keyColumn="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flower.xin.orm.dao.UserReceiveAddressDao">
+    update tb_user_receive_address
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null">
+        customer_phone = #{customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="slCity != null">
+        sl_city = #{slCity,jdbcType=VARCHAR},
+      </if>
+      <if test="tlCity != null">
+        tl_city = #{tlCity,jdbcType=VARCHAR},
+      </if>
+      <if test="street != null">
+        street = #{street,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetail != null">
+        address_detail = #{addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="isValidate != null">
+        is_validate = #{isValidate,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
